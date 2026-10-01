@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Synergos: shows a Java codebase as a society of object cubes.
+# Usage: ./syg <java-repo> [--port N] [--no-open] [--dump model.json]
+set -euo pipefail
+
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+jar="$here/target/synergos.jar"
+
+if [ ! -f "$jar" ] || [ -n "$(find "$here/src/main" "$here/pom.xml" -newer "$jar" -print -quit)" ]; then
+  echo "Building Synergos..." >&2
+  (cd "$here" && mvn -q -B -DskipTests package) >&2
+fi
+
+exec java -jar "$jar" "$@"

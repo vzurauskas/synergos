@@ -1,0 +1,14 @@
+target/
+.idea/
+*.iml
+.DS_Store
+
+# Machine-specific launch configurations for the Claude desktop app.
+.claude/launch.json
+
+# A sample of a copyrighted book (Object Thinking, Microsoft Press), for local reference only.
+object-thinking.pdf
+
+# Personal notes, kept out of the public repo.
+Design process.md
+task.txt

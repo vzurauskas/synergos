@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synergos</title>
+  <link rel="icon" href="/static/cube.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/synergos.css">
+  <script src="/static/vendor/d3.min.js"></script>
+  <script type="module" src="/static/synergos.js"></script>
+</head>
+<body>
+  <header class="bar">
+    <div class="brand">
+      <svg class="brand-cube" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 8 L12 4 L20 8 L12 12 Z" class="top"/>
+        <path d="M4 8 L12 12 L12 20 L4 16 Z" class="left"/>
+        <path d="M12 12 L20 8 L20 16 L12 20 Z" class="right"/>
+      </svg>
+      <span class="brand-name">Synergos</span>
+      <span class="repo" id="repo"></span>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="controls">
+      <div class="chips" id="filters" role="group" aria-label="Show"></div>
+      <input id="search" type="search" placeholder="Find a cube  /" autocomplete="off" spellcheck="false">
+      <button id="flags-button" class="button" type="button">Flags</button>
+      <button id="relayout" class="button quiet" type="button" title="Forget positions and lay the table out again">Re-layout</button>
+      <button id="rescan" class="button" type="button" title="Scan the code again (R)">Rescan</button>
+    </div>
+  </header>
+
+  <main id="stage">
+    <svg id="canvas" role="img" aria-label="Society of objects"></svg>
+    <div id="focus-banner" class="banner" hidden></div>
+    <aside class="legend" id="legend">
+      <button class="legend-toggle" type="button" id="legend-toggle">Legend</button>
+      <div class="legend-body" id="legend-body"></div>
+    </aside>
+    <div id="empty" class="empty" hidden></div>
+  </main>
+
+  <div id="tooltip" class="tooltip" hidden></div>
+  <div id="cube-layer" class="layer" hidden></div>
+  <aside id="drawer" class="drawer" hidden></aside>
+  <div id="toast" class="toast" hidden></div>
+  <div id="loading" class="loading">Scanning the code…</div>
+</body>
+</html>
