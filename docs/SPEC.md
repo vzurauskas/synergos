@@ -22,12 +22,12 @@ Sources: Bob's uml-viewer README, a sample of *Object Thinking* (preface, introd
 
 | | What you get |
 |---|---|
-| **M1: Lens** | `syg ~/Repos/railcount` opens a browser showing the society of objects, a cube for every class (six faces, filled in from the code), red flags, and source snippets. It's read-only. |
-| **M2a: Authoring** | Description, stereotype and responsibilities read from and written to Javadoc, edited in the viewer. Contradictions between that text and the code. Progress: how many cubes are written. |
+| **M1: Lens** | **Built 2026-09-25.** `syg ~/Repos/railcount` opens a browser showing the society of objects, a cube for every class (six faces, filled in from the code), red flags, and source snippets. It's read-only. |
+| **M2a: Authoring** | **Built 2026-09-30.** Description, stereotype and responsibilities read from and written to Javadoc, edited in the viewer. Contradictions between that text and the code. Progress: how many cubes are written. |
 | **Housekeeping: running viewers** | **Built 2026-10-01.** `./syg --list` shows every running viewer with its repo, port and uptime. `./syg --stop <port \| repo \| all>` closes them. Each viewer records itself in `~/.cache/synergos/running/` when it starts and removes the record when it exits. A record whose process is gone is cleaned up the next time anyone lists, and so is one whose process id now belongs to a different process (start times are compared). `--stop` matches a port, a repo path or a repo folder name, or `all`. It asks the viewer to exit, and forces it after 5 seconds. Requested 2026-09-30, after several viewers were left running on different projects. |
-| **M2b: Suggestions** | Your Claude Code session suggests descriptions and responsibilities for existing code, with evidence. You accept, edit or reject them in the viewer. |
-| **M2c: Designed cubes and proposals** | Cubes with no code yet, what-if proposals over the real society, and "make it so", which hands a proposal to the agent. |
-| **Phase 2: Theater** | Test runs are recorded as message traces and replayed as an animated play between object instances. Later, the agent role-plays stories that aren't coded yet. |
+| **M2b: Suggestions** | **Next.** Your Claude Code session suggests descriptions and responsibilities for existing code, with evidence. You accept, edit or reject them in the viewer. |
+| **M2c: Designed cubes and proposals** | Outlined. Cubes with no code yet, what-if proposals over the real society, and "make it so", which hands a proposal to the agent. |
+| **Phase 2: Theater** | Outlined. Test runs are recorded as message traces and replayed as an animated play between object instances. Later, the agent role-plays stories that aren't coded yet. |
 
 Sections 3–10 specify M1 in detail, and section 11 specifies M2a and M2b. M2c and Phase 2 are outlines, to be detailed when we get there.
 
