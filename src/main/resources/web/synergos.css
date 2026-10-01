@@ -482,3 +482,4 @@ ul.contradictions li::before { content: '!'; position: absolute; left: 3px; font
 @media (max-width: 900px) {
   .net:has(.face.editing) { grid-template-columns: 1fr; }
 }
+.field-hint { font-size: 11.5px; color: var(--muted); }

@@ -250,13 +250,55 @@ Notes from building it:
 
 Approval is a move, not a flag. Accepting a suggestion moves its text into the Javadoc, and from then on it is authored. A rescan just reads it, so there is nothing to approve again. A cube is **written** once it has at least one authored responsibility.
 
+### Three jobs: describe, judge, design
+
+Cube text, and the checks around it, do three different jobs, each with its own rules:
+
+| Job | What it does | Rules | Where |
+|---|---|---|---|
+| **Describe** | Says what each object actually does today | the writing guidelines below: accurate, from the code, written consistently | text you write (M2a) and suggestions (M2b) |
+| **Judge** | Measures the code against *Object Thinking* | detection rules: red flags and contradictions | built in M1 and M2a |
+| **Design** | Proposes how objects *should* be | design heuristics, from the author's design-process notes | designed cubes and proposals (M2c) |
+
+Suggestions only describe. They never judge the design or improve on it: judging is what the red flags do, and designing belongs in proposals, clearly marked as not in the code. On a codebase that doesn't follow *Object Thinking*, an accurate description won't look like *Object Thinking*, and that's the point: it shows plainly where the code departs from it.
+
+### Writing cube text
+
+These guidelines are for anyone writing cube text: you, by hand, and the agent, when it suggests. The tool carries them itself for M2b. They are written for this tool, not taken from the author's notes.
+
+**Descriptions (side 2).** West writes descriptions as short third-person definitions: the kind of thing an object is, then what sets it apart.
+1. Write a definition: "A *kind of thing* that *does what*" (or "*is for what*"). Name the kind first, using a domain category such as a form or a document, or the role or class the object is a kind of. Then say what distinguishes it.
+2. Keep it to one sentence. Add a second only to explain a part that defines the object.
+3. Use the domain's words. Avoid "class", "manager", "service", "wrapper", "helper" and "DTO", unless that's what the object really is.
+4. Name at most two or three things it does, as verbs. The full list of services belongs on the CRC side.
+5. Leave out how it works: no fields, types, storage, frameworks or algorithms.
+6. Don't repeat the class name, and don't start with "This class".
+7. For an object that stands for something in the world, "A representation of …" is enough.
+8. Be accurate. If the honest kind is technical ("a set of procedures for …", "a bundle of data passed between layers"), say so, and don't promote it to a domain object it isn't.
+
+Examples, written for railcount in this style:
+- `Transaction`: *A transfer of money from one account to another.* Its existing Javadoc already reads this way.
+- `Rail`: *A conveyor that carries transactions past a stamp, one by one, and reports how many it stamped.*
+- `ConsultingStamp`: *A stamp that asks someone which category a transaction belongs to.*
+- `CompositeService`: *A service made of other services, which passes each request to the one it names.*
+
+**Responsibilities (side 1).**
+1. Describe what the object does now, not what it should do. No responsibility without evidence: each one cites the messages, senders or tests behind it.
+2. Write from the outside: the services others actually use, not the steps inside.
+3. Use the code's own vocabulary, and don't rename its concepts into nicer ones.
+4. Write one responsibility per distinct service. Group messages that serve the same purpose, and leave out what nobody uses.
+5. Passive is fine when it's true: "Hold …" or "Hand out …" is accurate for a data holder.
+6. Link only collaborators the code really reaches. The contradiction checks enforce this.
+7. Pick the stereotype honestly, including "controller" when the object really directs others.
+8. Write each one as a single sentence that starts with a verb: "Stamp every unstamped transaction in a file."
+
 ### M2a: authoring in Javadoc
 
 **Format.** Existing Javadoc prose counts as the authored description, as it is.
 
 ```java
 /**
- * I carry transactions past a stamp, one by one, and say how many got stamped.
+ * A conveyor that carries transactions past a stamp, one by one, and reports how many it stamped.
  *
  * @responsibility Stamp every unstamped transaction in a file.
  *     {@link Stamp} {@link #drive(TransactionsFile)}
@@ -330,7 +372,7 @@ There is no `claude` CLI on this machine, so the viewer doesn't call an agent it
    - the roles it plays and its collaborators
    - its existing Javadoc and responsibilities already authored
    - suggestions you rejected before
-   - the heuristics from the design-process notes (the tool will ship its own copy)
+   - the writing guidelines above, but not the design heuristics: suggestions describe the code as it is
    - the answer format
 3. **Answer.** The agent pipes JSON to `syg <repo> --suggest <id>`: a description, a stereotype and responsibilities, each with its evidence (messages, senders, tests). The command checks:
    - the JSON itself
@@ -349,6 +391,7 @@ There is no `claude` CLI on this machine, so the viewer doesn't call an agent it
 ### M2c outline: designed cubes and proposals
 
 - Cubes with no code yet live in `.cubes/<Name>.md` (committed) and are drawn dashed in the society. Their text has the same states.
+- Design heuristics guide designed cubes and proposals. They're read locally from the author's design-process notes, via a path set in `~/.config/synergos/`, with a short built-in default when there's none. They're never used to describe existing code.
 - Proposals, in `.cubes/proposals/<name>.md`, are what-ifs drawn over the real society: new cubes dashed, removed ones greyed, changed ones marked.
 - "Make it so" hands a proposal to the agent.
   - The tool copies authored text into the new classes' Javadoc word for word, and retires the `.cubes/` files of cubes that now have code.
@@ -385,6 +428,7 @@ There is no `claude` CLI on this machine, so the viewer doesn't call an agent it
 - Asking for suggestions straight from the viewer with `claude -p`, if the Claude Code CLI gets installed.
 - Linking responsibilities to the tests (stories) that exercise them.
 - Marking a cube "not worth writing", so it leaves the conversion queue.
+- A clearly labelled "how could this be redesigned?" proposal for an existing object, using the design heuristics.
 - The Contracts face, once its meaning is clear.
 - More red flags, as the design process settles.
 

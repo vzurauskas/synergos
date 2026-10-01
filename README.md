@@ -54,7 +54,7 @@ its process is gone and drops the note.
 
   ```java
   /**
-   * I carry transactions past a stamp, one by one, and say how many got stamped.
+   * A conveyor that carries transactions past a stamp, one by one, and reports how many it stamped.
    *
    * @responsibility Stamp every unstamped transaction in a file. {@link Stamp}
    *     {@link #drive(TransactionsFile)}
@@ -63,6 +63,8 @@ its process is gone and drops the note.
    */
   ```
 
+  - Descriptions are short third-person definitions, in West's style: a kind
+    of thing, then what sets it apart. See "Writing cube text" in the spec.
   - `{@link Type}` names a collaborator, and `{@link #message}` (optional) the
     message that carries the responsibility out. The editor has chips that
     insert both.

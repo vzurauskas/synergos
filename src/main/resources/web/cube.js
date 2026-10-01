@@ -121,6 +121,7 @@ function responsibilitiesEditor(cube, cubes, view) {
         <button type="button" class="close" data-remove="${i}" title="Remove this responsibility" aria-label="Remove">×</button>
       </div>`).join('')}
     <button type="button" class="link" data-add>+ Add a responsibility</button>
+    <span class="field-hint">One sentence each, starting with a verb: what it does for others today. Link only collaborators it really uses.</span>
     <div class="inserts">
       ${types.length ? `<div><span class="muted">Collaborator:</span> ${types.map(id => chip(shortName(id, cubes), `{@link ${shortName(id, cubes)}}`, `Insert {@link ${shortName(id, cubes)}}`)).join('')}</div>` : ''}
       ${crc.foreign.length ? `<div><span class="muted">Library:</span> ${crc.foreign.map(id => chip(shortName(id), `{@link ${shortName(id)}}`, id, 'foreign')).join('')}</div>` : ''}
@@ -139,7 +140,8 @@ function descriptionFace(cube, view) {
     const guess = d.stereotype?.state === 'guessed' ? d.stereotype.value : null;
     parts.push(`<div class="editor">
       <label class="field">Description
-        <textarea data-field="description" rows="5" placeholder="Who is ${e(cube.simpleName)}? E.g. “I carry transactions past a stamp…”">${e(view.draft.description ?? '')}</textarea>
+        <textarea data-field="description" rows="5" placeholder="E.g. “A conveyor that carries transactions past a stamp, one by one, and reports how many it stamped.”">${e(view.draft.description ?? '')}</textarea>
+        <span class="field-hint">A definition: the kind of thing ${e(cube.simpleName)} is, then what sets it apart. One sentence, in the domain's words.</span>
       </label>
       <label class="field">Stereotype
         <select data-field="stereotype">
